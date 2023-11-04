@@ -66,6 +66,6 @@ Describe 'Set-AzEventHubGeoDRConfigurationFailOver' {
             Start-Sleep 180
         }
 
-        { Get-AzEventHubGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.primaryNamespace } | Should -Throw
+        { Get-AzEventHubGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.primaryNamespace -ErrorAction Stop } | Should -Throw
     }
 }

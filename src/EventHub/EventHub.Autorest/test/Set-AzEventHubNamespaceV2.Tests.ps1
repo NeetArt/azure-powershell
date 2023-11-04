@@ -101,7 +101,7 @@ Describe 'Set-AzEventHubNamespaceV2' {
         assertNamespaceUpdates $eventHubNamespace $namespace
         
         # Create a namespace with UserAssignedIdentity and use Set-Az cmdlet to set IdentityType to None
-        $eventhubNamespace = New-AzEventHubNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV6 -SkuName Premium -Location northeurope -IdentityType UserAssigned -UserAssignedIdentityId $env.msi1
+        $eventhubNamespace = New-AzEventHubNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV6 -SkuName Premium -Location $env.location -IdentityType UserAssigned -UserAssignedIdentityId $env.msi1
         $eventHubNamespace.UserAssignedIdentity.Count | Should -Be 1
 
         $eventhubNamespace = Set-AzEventHubNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV6 -IdentityType None -UserAssignedIdentity:$null

@@ -1,24 +1,42 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "namespace_name": {
-      "value": "namespaceNamehjil09"
-    },
-    "system_assigned_namespace_name": {
-      "value": "namespaceNamembaip3"
-    },
-    "standard_namespace_name": {
-      "value": "namespaceNametkv0jq"
-    },
-    "namespaceResourceId": {
-      "value": "/subscriptions/326100e2-f69d-4268-8503-075374f62b6e/resourceGroups/resourceGroupAutorestxe2h9c/providers/Microsoft.ServiceBus/namespaces/namespaceNamehjil09"
-    },
-    "peName1": {
-      "value": "pe1w0yv9t"
-    },
-    "peName2": {
-      "value": "pe2otyvgf"
-    }
-  }
+    "$schema":  "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion":  "1.0.0.0",
+    "parameters":  {
+                       "secondaryLocation":  {
+                                                 "value":  "northeurope"
+                                             },
+                       "namespace_name":  {
+                                              "value":  "namespaceNamen2urdx"
+                                          },
+                       "standard_namespace_name":  {
+                                                       "value":  "namespaceNameb1afxk"
+                                                   },
+                       "system_assigned_namespace_name":  {
+                                                              "value":  "namespaceNamewuma7c"
+                                                          },
+                       "primarynamespace_name":  {
+                                                     "value":  "primaryNSwavnbp"
+                                                 },
+                       "secondarynamespace_name":  {
+                                                       "value":  "secondaryNSqfa1o3"
+                                                   },
+                       "migrationPrimaryNamespace":  {
+                                                         "value":  "primaryNSy9dpq1"
+                                                     },
+                       "migrationSecondaryNamespace":  {
+                                                           "value":  "secondaryNSr724dp"
+                                                       },
+                       "subnet1Id":  {
+                                         "value":  "/subscriptions/80d721c1-1f1a-422a-bf06-bcaec630163c/resourceGroups/Autorest-PS-ServiceBus-4szh3u/providers/Microsoft.Network/virtualNetworks/sb-ps-xig9jb-vnet/subnets/default"
+                                     },
+                       "peName1":  {
+                                       "value":  "pe1bf23xk"
+                                   },
+                       "peName2":  {
+                                       "value":  "pe2mrl197"
+                                   },
+                       "useZoneRedundancy":  {
+                                                 "value":  false
+                                             }
+                   }
 }

@@ -1,36 +1,51 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "namespace_name": {
-      "value": "namespaceNamed5orf8"
-    },
-    "system_assigned_namespace_name": {
-      "value": "namespaceNamewze84s"
-    },
-    "namespace_auth_rule_name": {
-      "value": "auth-ruleju0nd3"
-    },
-    "eventhub_auth_rule_name": {
-      "value": "auth-rulepjiaoe"
-    },
-    "eventhub_name": {
-      "value": "eventHub504uah"
-    },
-    "schema_group_name": {
-      "value": "schemaGroup7ezg61"
-    },
-    "appgroup_name": {
-      "value": "appGroupdchk16"
-    },
-    "peName1": {
-      "value": "privateEndpoint-qyfutj"
-    },
-    "peName2": {
-      "value": "privateEndpoint-352l4o"
-    },
-    "namespaceResourceId": {
-      "value": "/subscriptions/326100e2-f69d-4268-8503-075374f62b6e/resourceGroups/resourceGroupAutoresta2s9gd/providers/Microsoft.EventHub/namespaces/namespaceNamed5orf8"
-    }
-  }
+    "$schema":  "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion":  "1.0.0.0",
+    "parameters":  {
+                       "secondaryLocation":  {
+                                                 "value":  "northeurope"
+                                             },
+                       "namespace_name":  {
+                                              "value":  "namespaceName90pm4o"
+                                          },
+                       "system_assigned_namespace_name":  {
+                                                              "value":  "namespaceNamegn27xk"
+                                                          },
+                       "primary_namespace_name":  {
+                                                      "value":  "namespaceNamekn1yvs"
+                                                  },
+                       "secondary_namespace_name":  {
+                                                        "value":  "namespaceNamesgm3dt"
+                                                    },
+                       "namespace_auth_rule_name":  {
+                                                        "value":  "auth-rulemsilcz"
+                                                    },
+                       "eventhub_auth_rule_name":  {
+                                                       "value":  "auth-rule59aq3u"
+                                                   },
+                       "eventhub_name":  {
+                                             "value":  "eventHub5m3qas"
+                                         },
+                       "schema_group_name":  {
+                                                 "value":  "schemaGroupi5ojhl"
+                                             },
+                       "appgroup_name":  {
+                                             "value":  "appGroupyg9kx2"
+                                         },
+                       "subnet1Id":  {
+                                         "value":  "/subscriptions/80d721c1-1f1a-422a-bf06-bcaec630163c/resourceGroups/Autorest-PS-EventHub-cvil79/providers/Microsoft.Network/virtualNetworks/eh-ps-k0pnre-vnet/subnets/default"
+                                     },
+                       "peName1":  {
+                                       "value":  "privateEndpoint-dqi2s3"
+                                   },
+                       "peName2":  {
+                                       "value":  "privateEndpoint-p0lcfe"
+                                   },
+                       "namespaceResourceId":  {
+                                                   "value":  "/subscriptions/80d721c1-1f1a-422a-bf06-bcaec630163c/resourceGroups/Autorest-PS-EventHub-cvil79/providers/Microsoft.EventHub/namespaces/namespaceName90pm4o"
+                                               },
+                       "useZoneRedundancy":  {
+                                                 "value":  false
+                                             }
+                   }
 }

@@ -66,6 +66,6 @@ Describe 'Set-AzServiceBusGeoDRConfigurationFailOver' {
                 Start-Sleep 180
         }
 
-        { Get-AzServiceBusGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.primaryNamespace } | Should -Throw
+        { Get-AzServiceBusGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.primaryNamespace -ErrorAction Stop } | Should -Throw
     }
 }

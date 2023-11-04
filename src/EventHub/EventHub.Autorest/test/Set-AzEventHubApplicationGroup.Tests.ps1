@@ -31,7 +31,7 @@ Describe 'Set-AzEventHubApplicationGroup' {
         $appGroup = Get-AzEventHubApplicationGroup -ResourceGroupName $env.resourceGroup -NamespaceName $env.namespace -Name $env.appGroup2
         $appGroup.Policy += $t4
         
-        { Set-AzEventHubApplicationGroup -InputObject $appGroup } | Should -Throw 'Please specify the property you want to update on the -InputObject'
+        { Set-AzEventHubApplicationGroup -InputObject $appGroup -ErrorAction Stop } | Should -Throw 'Please specify the property you want to update on the -InputObject'
         
         $updateAppGroup = Set-AzEventHubApplicationGroup -InputObject $appGroup -Policy $appGroup.Policy
         $updateAppGroup.Name | Should -Be $env.appGroup2

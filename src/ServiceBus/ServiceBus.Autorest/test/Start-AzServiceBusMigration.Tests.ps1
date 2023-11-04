@@ -35,7 +35,7 @@ Describe 'Start-AzServiceBusMigration' {
 
         $migrationConfig.TargetNamespace | Should -Be ""
 
-        { Remove-AzServiceBusMigration -ResourceGroupName $env.resourceGroup -NamespaceName $env.migrationPrimaryNamespace } | Should -Throw
+        { Remove-AzServiceBusMigration -ResourceGroupName $env.resourceGroup -NamespaceName $env.migrationPrimaryNamespace -ErrorAction Stop } | Should -Throw
     
         $migrationConfig = Start-AzServiceBusMigration -ResourceGroupName $env.resourceGroup -NamespaceName $env.migrationPrimaryNamespace -PostMigrationName $env.postMigrationName -TargetNamespace $env.migrationSecondaryNamespaceResourceId
         $migrationConfig.Name | Should -Be $env.migrationPrimaryNamespace
