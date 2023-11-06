@@ -213,7 +213,8 @@ function GenerateSASKey {
     $Signature
 }
 
-function cleanupEnv() {
+function cleanupEnv(
+    $verbose = $false) {
     # Clean resources you create for testing
     Remove-AzResourceGroup -Name $env.resourceGroup -Force -Confirm:$false -Verbose:$verbose
 }
