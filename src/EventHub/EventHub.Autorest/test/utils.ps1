@@ -125,6 +125,7 @@ function setupEnv(
     $env.Add("cluster", $cluster)
     $env.Add("cluster2", $cluster2)
     $env.Add("clusterResourceGroup", "AutomatedPowershellTesting")
+    $env.Add("clusterSubscriptionId", "326100e2-f69d-4268-8503-075374f62b6e")
     $env.Add("consumerGroup", '$Default')
     $env.Add("consumerGroup2", $consumerGroup2)
     $env.Add("consumerGroup3", $consumerGroup3)
@@ -156,6 +157,20 @@ function setupEnv(
     $rg = New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\DependentResourcesTemplate.json -TemplateParameterFile .\test\deployment-template\DependentResourcesParameters.json -Name dependenciesTemplate -ResourceGroupName $resourceGroup -Verbose:$verbose
 
     Write-Host -ForegroundColor Magenta "Deployed dependencies ARM template"
+
+    # RBAC is best setup via PowerShell as ARM template experience is extremely lacking
+    Write-Host -ForegroundColor Magenta "Setting up RBAC permissions"
+    $token = Get-AzAccessToken
+    $appIdGuid = [Guid]::Empty
+    if ([Guid]::TryParse($token.UserId, [ref]$appIdGuid)) {
+        # If the user id is a Guid, the login identity is an AAD App.
+        New-AzRoleAssignment -ApplicationId (Get-AccessToken).UserId -RoleDefinitionName "Storage Blob Data Contributor" -Scope $env.storageAccountId
+    }
+    else {
+        New-AzRoleAssignment -SignInName (Get-AccessToken).UserId -RoleDefinitionName "Storage Blob Data Contributor" -Scope $env.storageAccountId
+    }
+
+    Write-Host -ForegroundColor Magenta "Successfully set up RBAC permissions"
 
     Write-Host -ForegroundColor Magenta "Deploying Event Hubs namespace template"
 
