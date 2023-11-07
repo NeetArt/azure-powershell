@@ -164,10 +164,10 @@ function setupEnv(
     $appIdGuid = [Guid]::Empty
     if ([Guid]::TryParse($token.UserId, [ref]$appIdGuid)) {
         # If the user id is a Guid, the login identity is an AAD App.
-        New-AzRoleAssignment -ApplicationId (Get-AccessToken).UserId -RoleDefinitionName "Storage Blob Data Contributor" -Scope $env.storageAccountId
+        New-AzRoleAssignment -ApplicationId (Get-AccessToken).UserId -RoleDefinitionName "Storage Blob Data Contributor" -Scope $env.storageAccountId -Verbose:$verbose
     }
     else {
-        New-AzRoleAssignment -SignInName (Get-AccessToken).UserId -RoleDefinitionName "Storage Blob Data Contributor" -Scope $env.storageAccountId
+        New-AzRoleAssignment -SignInName (Get-AccessToken).UserId -RoleDefinitionName "Storage Blob Data Contributor" -Scope $env.storageAccountId -Verbose:$verbose
     }
 
     Write-Host -ForegroundColor Magenta "Successfully set up RBAC permissions"

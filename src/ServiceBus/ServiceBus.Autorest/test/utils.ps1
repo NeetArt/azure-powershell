@@ -17,7 +17,8 @@ function setupEnv(
     $location = 'eastus',
     $secondaryLocation = 'southcentralus',
     $usePartitionedNamespace = $true,
-    $useZoneRedundancy = $true) {
+    $useZoneRedundancy = $true,
+    $verbose = $false) {
     # Preload subscriptionId and tenant from context, which will be used in test
     # as default. You could change them if needed.
     $env.SubscriptionId = (Get-AzContext).Subscription.Id
@@ -111,7 +112,7 @@ function setupEnv(
 
     Write-Host -ForegroundColor Magenta "Creating resource group $resourceGroup in $location"
 
-    New-AzResourceGroup -Name $resourceGroup -Location $location
+    New-AzResourceGroup -Name $resourceGroup -Location $location -Verbose:$verbose
 
     Write-Host -ForegroundColor Magenta "Deploying dependencies ARM template"
 
@@ -119,7 +120,7 @@ function setupEnv(
     $dependentResourcesTemplate.parameters.resource_name_prefix.value = $dependentResourcesPrefix
     $dependentResourcesTemplate.parameters.useZoneRedundancy.value = $useZoneRedundancy
     Set-Content -Path .\test\deployment-template\DependentResourcesParameters.json -Value (ConvertTo-Json $dependentResourcesTemplate)
-    $rg = New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\DependentResourcesTemplate.json -TemplateParameterFile .\test\deployment-template\DependentResourcesParameters.json -Name dependenciesTemplate -ResourceGroupName $resourceGroup
+    $rg = New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\DependentResourcesTemplate.json -TemplateParameterFile .\test\deployment-template\DependentResourcesParameters.json -Name dependenciesTemplate -ResourceGroupName $resourceGroup -Verbose:$verbose
 
     Write-Host -ForegroundColor Magenta "Deployed dependencies ARM template"
 
@@ -139,7 +140,7 @@ function setupEnv(
     $serviceBusTemplate.parameters.peName2.value = $peName2
     $serviceBusTemplate.parameters.useZoneRedundancy.value = $useZoneRedundancy
     Set-Content -Path .\test\deployment-template\parameter.json -Value (ConvertTo-Json $serviceBusTemplate)
-    $rg = New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\template.json -TemplateParameterFile .\test\deployment-template\parameter.json -Name serviceBusTemplate -ResourceGroupName $resourceGroup
+    $rg = New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\template.json -TemplateParameterFile .\test\deployment-template\parameter.json -Name serviceBusTemplate -ResourceGroupName $resourceGroup -Verbose:$verbose
 
     Write-Host -ForegroundColor Magenta "Deployed Service Bus namespace template"
 
@@ -149,7 +150,7 @@ function setupEnv(
     $keyVaultTemplate.parameters.resource_name_prefix.value = $dependentResourcesPrefix
     $keyVaultTemplate.parameters.system_assigned_namespace_name.value = $systemAssignedNamespaceName
     Set-Content -Path .\test\deployment-template\KeyVaultParameters.json -Value (ConvertTo-Json $keyVaultTemplate)
-    $rg = New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\KeyVaultTemplate.json -TemplateParameterFile .\test\deployment-template\KeyVaultParameters.json -Name keyVaultTemplate -ResourceGroupName $resourceGroup
+    $rg = New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\KeyVaultTemplate.json -TemplateParameterFile .\test\deployment-template\KeyVaultParameters.json -Name keyVaultTemplate -ResourceGroupName $resourceGroup -Verbose:$verbose
 
     Write-Host -ForegroundColor Magenta "Deployed KeyVault ARM template"
 
@@ -175,8 +176,9 @@ function GenerateSASKey {
     $Signature
 }
 
-function cleanupEnv() {
+function cleanupEnv(
+    $verbose = $false) {
     # Clean resources you create for testing
-    Remove-AzResourceGroup -Name $env.resourceGroup -Force -Confirm:$false
+    Remove-AzResourceGroup -Name $env.resourceGroup -Force -Confirm:$false -Verbose:$verbose
 }
 
