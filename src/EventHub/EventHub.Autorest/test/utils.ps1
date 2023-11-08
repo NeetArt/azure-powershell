@@ -75,8 +75,10 @@ function setupEnv(
     $subnet1ResourceId = "$vnetResourceId/subnets/default"
     $subnet2ResourceId = "$vnetResourceId/subnets/default2"
     $subnet3ResourceId = "$vnetResourceId/subnets/default3"
-    $msi1ResourceId = "$resourceGroupArmId/providers/Microsoft.ManagedIdentity/userAssignedIdentities/$dependentResourcesPrefix-msi1"
-    $msi2ResourceId = "$resourceGroupArmId/providers/Microsoft.ManagedIdentity/userAssignedIdentities/$dependentResourcesPrefix-msi2"
+    $msi1Name = "$dependentResourcesPrefix-msi1"
+    $msi2Name = "$dependentResourcesPrefix-msi2"
+    $msi1ResourceId = "$resourceGroupArmId/providers/Microsoft.ManagedIdentity/userAssignedIdentities/$msi1Name"
+    $msi2ResourceId = "$resourceGroupArmId/providers/Microsoft.ManagedIdentity/userAssignedIdentities/$msi2Name"
 
     $namespacePrimaryKey = GenerateSASKey
     $namespaceSecondaryKey = GenerateSASKey
@@ -169,6 +171,11 @@ function setupEnv(
     else {
         New-AzRoleAssignment -SignInName $token.UserId -RoleDefinitionName "Storage Blob Data Contributor" -Scope $env.storageAccountId -Verbose:$verbose
     }
+
+    $msi1 = Get-AzUserAssignedIdentity -Name $msi1Name -ResourceGroupName $resourceGroup
+    $msi2 = Get-AzUserAssignedIdentity -Name $msi2Name -ResourceGroupName $resourceGroup
+    New-AzRoleAssignment -ObjectId $msi1.PrincipalId -RoleDefinitionName "Storage Blob Data Contributor" -Scope $env.storageAccountId -Verbose:$verbose
+    New-AzRoleAssignment -ObjectId $msi2.PrincipalId -RoleDefinitionName "Storage Blob Data Contributor" -Scope $env.storageAccountId -Verbose:$verbose
 
     Write-Host -ForegroundColor Magenta "Successfully set up RBAC permissions"
 
