@@ -13,15 +13,18 @@ if ($UsePreviousConfigForRecord) {
 # Add script method called AddWithCache to $env, when useCache is set true, it will try to get the value from the $env first.
 # example: $val = $env.AddWithCache('key', $val, $true)
 $env | Add-Member -Type ScriptMethod -Value { param( [string]$key, [object]$val, [bool]$useCache) if ($this.Contains($key) -and $useCache) { return $this[$key] } else { $this[$key] = $val; return $val } } -Name 'AddWithCache'
-function setupEnv() {
+
+function setupEnv(
+    $location = 'eastus',
+    $verbose = $false) {
     # Preload subscriptionId and tenant from context, which will be used in test
     # as default. You could change them if needed.
     $env.SubscriptionId = (Get-AzContext).Subscription.Id
     $env.Tenant = (Get-AzContext).Tenant.Id
     # For any resources you created for test, you should add it to $env here.
 
-    $env.location = 'eastus'
-    $env.resourceGroupName = "relay-" + (RandomString -allChars $false -len 6)
+    $env.location = $location
+    $env.resourceGroupName = "Autorest-PS-Relay-" + (RandomString -allChars $false -len 6)
     $env.namespaceName01 = "namespace-" + (RandomString -allChars $false -len 6)
     $env.namespaceName02 = "namespace-" + (RandomString -allChars $false -len 6)
     $env.namespaceName03 = "namespace-" + (RandomString -allChars $false -len 6)
@@ -43,16 +46,16 @@ function setupEnv() {
     $env.wcfRelayName03 = "wcfRelay-" + (RandomString -allChars $false -len 6)
     $env.wcfRelayName04 = "wcfRelay-" + (RandomString -allChars $false -len 6)
 
-    Write-Host "start to create test group"
-    New-AzResourceGroup -Name $env.resourceGroupName -Location $env.location
+    Write-Host -ForegroundColor Magenta "Creating resource group $($env.resourceGroupName) in $location"
+    New-AzResourceGroup -Name $env.resourceGroupName -Location $env.location -Verbose:$verbose
 
     Write-Host "Create RelayNamespace, HybridConnection, WcfRelay for testing"
-    New-AzRelayNamespace -ResourceGroupName $env.resourceGroupName -Name $env.namespaceName01 -Location $env.location
-    New-AzRelayHybridConnection -ResourceGroupName $env.resourceGroupName -Namespace $env.namespaceName01 -Name $env.hybridConnectionName01 -UserMetadata "test"
-    New-AzWcfRelay -ResourceGroupName $env.resourceGroupName -Namespace $env.namespaceName01 -Name $env.wcfRelayName01 -WcfRelayType 'NetTcp' -UserMetadata "test"
-    New-AzRelayAuthorizationRule -ResourceGroupName $env.resourceGroupName -Namespace $env.namespaceName01 -Name $env.authRuleName01 -Rights 'Listen','Send'
-    New-AzRelayAuthorizationRule -ResourceGroupName $env.resourceGroupName -Namespace $env.namespaceName01 -WcfRelay $env.wcfRelayName01 -Name $env.authRuleName01 -Rights 'Listen','Send'
-    New-AzRelayAuthorizationRule -ResourceGroupName $env.resourceGroupName -Namespace $env.namespaceName01 -HybridConnection $env.hybridConnectionName01 -Name $env.authRuleName01 -Rights 'Listen','Send'
+    New-AzRelayNamespace -ResourceGroupName $env.resourceGroupName -Name $env.namespaceName01 -Location $env.location -Verbose:$verbose
+    New-AzRelayHybridConnection -ResourceGroupName $env.resourceGroupName -Namespace $env.namespaceName01 -Name $env.hybridConnectionName01 -UserMetadata "test" -Verbose:$verbose
+    New-AzWcfRelay -ResourceGroupName $env.resourceGroupName -Namespace $env.namespaceName01 -Name $env.wcfRelayName01 -WcfRelayType 'NetTcp' -UserMetadata "test" -Verbose:$verbose
+    New-AzRelayAuthorizationRule -ResourceGroupName $env.resourceGroupName -Namespace $env.namespaceName01 -Name $env.authRuleName01 -Rights 'Listen','Send' -Verbose:$verbose
+    New-AzRelayAuthorizationRule -ResourceGroupName $env.resourceGroupName -Namespace $env.namespaceName01 -WcfRelay $env.wcfRelayName01 -Name $env.authRuleName01 -Rights 'Listen','Send' -Verbose:$verbose
+    New-AzRelayAuthorizationRule -ResourceGroupName $env.resourceGroupName -Namespace $env.namespaceName01 -HybridConnection $env.hybridConnectionName01 -Name $env.authRuleName01 -Rights 'Listen','Send' -Verbose:$verbose
 
     $envFile = 'env.json'
     if ($TestMode -eq 'live') {
@@ -60,9 +63,10 @@ function setupEnv() {
     }
     set-content -Path (Join-Path $PSScriptRoot $envFile) -Value (ConvertTo-Json $env)
 }
-function cleanupEnv() {
+
+function cleanupEnv(
+    $verbose = $false) {
     # Clean resources you create for testing
-    Write-Host "Delete resource group"
-    Remove-AzResourceGroup -Name $env.resourceGroupName
+    Remove-AzResourceGroup -Name $env.resourceGroupName -Force -Confirm:$false -Verbose:$verbose
 }
 
