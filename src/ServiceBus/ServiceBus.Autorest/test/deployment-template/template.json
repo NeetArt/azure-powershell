@@ -55,7 +55,9 @@
       "type": "bool"
     }
   },
-  "variables": {},
+  "variables": {
+    "deploySecondaryNamespace": "[not(empty(parameters('secondaryLocation')))]"
+  },
   "resources": [
     {
       "type": "Microsoft.ServiceBus/namespaces",
@@ -399,6 +401,7 @@
       }
     },
     {
+      "condition": "[variables('deploySecondaryNamespace')]",
       "type": "Microsoft.ServiceBus/namespaces",
       "apiVersion": "2022-01-01-preview",
       "name": "[parameters('secondarynamespace_name')]",
@@ -431,6 +434,7 @@
       }
     },
     {
+      "condition": "[variables('deploySecondaryNamespace')]",
       "type": "Microsoft.ServiceBus/namespaces",
       "apiVersion": "2022-01-01-preview",
       "name": "[parameters('migrationSecondaryNamespace')]",

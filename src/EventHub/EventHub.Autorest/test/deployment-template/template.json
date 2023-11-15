@@ -67,7 +67,9 @@
       "type": "bool"
     }
   },
-  "variables": {},
+  "variables": {
+    "deploySecondaryNamespace": "[not(empty(parameters('secondaryLocation')))]"
+  },
   "resources": [
     {
       "type": "Microsoft.EventHub/namespaces",
@@ -328,6 +330,7 @@
       }
     },
     {
+      "condition": "[variables('deploySecondaryNamespace')]",
       "type": "Microsoft.EventHub/namespaces",
       "apiVersion": "2022-01-01-preview",
       "name": "[parameters('secondary_namespace_name')]",

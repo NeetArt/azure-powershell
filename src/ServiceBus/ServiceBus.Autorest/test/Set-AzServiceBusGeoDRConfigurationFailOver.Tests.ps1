@@ -15,7 +15,7 @@ if(($null -eq $TestName) -or ($TestName -contains 'Set-AzServiceBusGeoDRConfigur
 }
 
 Describe 'Set-AzServiceBusGeoDRConfigurationFailOver' {
-    It 'Fail'  {
+    It 'Fail' -skip:$($env.secondaryLocation -eq '')  {
         Set-AzServiceBusGeoDRConfigurationFailOver -ResourceGroupName $env.resourceGroup -NamespaceName $env.secondaryNamespace -Name $env.alias
         
         while($drConfig.ProvisioningState -ne "Succeeded"){
@@ -43,7 +43,7 @@ Describe 'Set-AzServiceBusGeoDRConfigurationFailOver' {
             }
         }
     }
-    It 'FailViaIdentity' {
+    It 'FailViaIdentity' -skip:$($env.secondaryLocation -eq '') {
         $drConfig = Get-AzServiceBusGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.secondaryNamespace
         
         Set-AzServiceBusGeoDRConfigurationFailOver -InputObject $drConfig
