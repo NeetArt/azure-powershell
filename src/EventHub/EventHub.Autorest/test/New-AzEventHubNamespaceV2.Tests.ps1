@@ -41,11 +41,11 @@ Describe 'New-AzEventHubNamespaceV2' {
         $eventHubNamespace.PublicNetworkAccess | Should -Be "Disabled"
         $eventHubNamespace.ZoneRedundant | Should -Be $env.useZoneRedundancy
 
-        $eventhubNamespace = New-AzEventHubNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV4 -SkuName Premium -Location $env.location -IdentityType SystemAssigned        
+        $eventhubNamespace = New-AzEventHubNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV4 -SkuName Premium -Location $env.location -IdentityType SystemAssigned
         $eventhubNamespace.MaximumThroughputUnit | Should -Be 0
         $eventhubNamespace.Name | Should -Be $env.namespaceV4
         $eventhubNamespace.IdentityType | Should -Be SystemAssigned
-        $eventhubNamespace.ZoneRedundant | Should -Be $true
+        $eventhubNamespace.ZoneRedundant | Should -Be $false
         $eventhubNamespace.SkuName | Should -Be Premium
         $eventhubNamespace.SkuTier | Should be Premium
         $eventhubNamespace.DisableLocalAuth | Should -Be $false
