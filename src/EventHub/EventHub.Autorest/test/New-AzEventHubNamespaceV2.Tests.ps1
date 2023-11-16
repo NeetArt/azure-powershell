@@ -74,7 +74,7 @@ Describe 'New-AzEventHubNamespaceV2' {
         $eventhubNamespace.IdentityType | Should -Be UserAssigned
         $eventhubNamespace.SkuName | Should -Be Premium
         $eventhubNamespace.SkuTier | Should -Be Premium
-        $eventhubNamespace.Location.Replace(' ', '').ToLower() | Should -Be $#env.location
+        $eventhubNamespace.Location.Replace(' ', '').ToLower() | Should -Be $env.location
         #$eventhubNamespace.KeyVaultProperty.Count | Should -Be 2
         $eventhubNamespace.UserAssignedIdentity.Count | Should -Be 2
         #$eventhubNamespace.RequireInfrastructureEncryption | Should -Be $true
