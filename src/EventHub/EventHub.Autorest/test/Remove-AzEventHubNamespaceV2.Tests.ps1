@@ -22,7 +22,7 @@ Describe 'Remove-AzEventHubNamespaceV2' {
     }
 
     It 'DeleteViaIdentity' { 
-        $eventhubnamespace = New-AzEventHubNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV2 -SkuName Standard -Location $env.location
+        $eventhubnamespace = New-AzEventHubNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV8 -SkuName Standard -Location $env.location
         Remove-AzEventHubNamespaceV2 -InputObject $eventhubnamespace
         { Get-AzEventHubNamespaceV2 -InputObject $eventhubnamespace -ErrorAction Stop } | Should -Throw
     }
