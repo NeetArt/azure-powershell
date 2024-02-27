@@ -76,6 +76,7 @@ Describe 'Set-AzEventHub' {
         $eventhub.IntervalInSeconds | Should -Be 600
         $eventhub.SizeLimitInBytes | Should -Be 11000000
         $eventhub.StorageAccountResourceId | Should -Be $eventhub.StorageAccountResourceId
+        Start-Sleep -Seconds 5
 
         $eventhub = Set-AzEventHub -InputObject $eventhub.Id -CaptureEnabled:$false
         $eventhub.PartitionCount | Should -Be 4
@@ -88,6 +89,7 @@ Describe 'Set-AzEventHub' {
         $eventhub.IntervalInSeconds | Should -Be 600
         $eventhub.SizeLimitInBytes | Should -Be 11000000
         $eventhub.StorageAccountResourceId | Should -Be $eventhub.StorageAccountResourceId
+        Start-Sleep -Seconds 5
 
         # TODO UNCOMMENT BELOW CODE BEFORE MERGING TO MAIN
         # $eventhub = Set-AzEventHub -InputObject $eventhub.Id -PartitionCount 8

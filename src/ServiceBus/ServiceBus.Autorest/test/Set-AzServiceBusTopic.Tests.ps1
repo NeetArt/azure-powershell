@@ -38,16 +38,19 @@ Describe 'Set-AzServiceBusTopic' {
         $currentTopic.DefaultMessageTimeToLive = (New-TimeSpan -Days 7)
         AssertTopicUpdates $currentTopic $updatedTopic
         $currentTopic = $updatedTopic
+        Start-Sleep -Seconds 5
 
         $updatedTopic = Set-AzServiceBusTopic -ResourceGroupName $env.resourceGroup -NamespaceName $env.namespace -Name topicToUpdate -EnableBatchedOperations:$false
         $currentTopic.EnableBatchedOperations = $false
         AssertTopicUpdates $currentTopic $updatedTopic
         $currentTopic = $updatedTopic
+        Start-Sleep -Seconds 5
 
         $updatedTopic = Set-AzServiceBusTopic -ResourceGroupName $env.resourceGroup -NamespaceName $env.namespace -Name topicToUpdate -EnableBatchedOperations
         $currentTopic.EnableBatchedOperations = $true
         AssertTopicUpdates $currentTopic $updatedTopic
         $currentTopic = $updatedTopic
+        Start-Sleep -Seconds 5
     }
 
     It 'SetViaIdentityExpanded' {
@@ -57,42 +60,50 @@ Describe 'Set-AzServiceBusTopic' {
         $currentTopic.SupportOrdering = $true
         AssertTopicUpdates $currentTopic $updatedTopic
         $currentTopic = $updatedTopic
+        Start-Sleep -Seconds 5
 
         $updatedTopic = Set-AzServiceBusTopic -InputObject $currentTopic -SupportOrdering:$false
         $currentTopic.SupportOrdering = $false
         AssertTopicUpdates $currentTopic $updatedTopic
         $currentTopic = $updatedTopic
+        Start-Sleep -Seconds 5
 
         $updatedTopic = Set-AzServiceBusTopic -InputObject $currentTopic -MaxSizeInMegabytes 2048
         $currentTopic.MaxSizeInMegabytes = 2048
         AssertTopicUpdates $currentTopic $updatedTopic
         $currentTopic = $updatedTopic
+        Start-Sleep -Seconds 5
 
         $updatedTopic = Set-AzServiceBusTopic -InputObject $currentTopic -AutoDeleteOnIdle (New-TimeSpan -Days 428 -Hours 3 -Minutes 11 -Seconds 2)
         $currentTopic.AutoDeleteOnIdle = (New-TimeSpan -Days 428 -Hours 3 -Minutes 11 -Seconds 2)
         AssertTopicUpdates $currentTopic $updatedTopic
         $currentTopic = $updatedTopic
+        Start-Sleep -Seconds 5
 
         $updatedTopic = Set-AzServiceBusTopic -InputObject $currentTopic -Status SendDisabled
         $currentTopic.Status = "SendDisabled"
         AssertTopicUpdates $currentTopic $updatedTopic
         $currentTopic = $updatedTopic
+        Start-Sleep -Seconds 5
 
         $updatedTopic = Set-AzServiceBusTopic -InputObject $currentTopic -DuplicateDetectionHistoryTimeWindow (New-TimeSpan -Minutes 3)
         $currentTopic.DuplicateDetectionHistoryTimeWindow = (New-TimeSpan -Minutes 3)
         AssertTopicUpdates $currentTopic $updatedTopic
         $currentTopic = $updatedTopic
+        Start-Sleep -Seconds 5
 
         $currentTopic = Get-AzServiceBusTopic -ResourceGroupName $env.resourceGroup -NamespaceName $env.standardNamespace -Name topic1
         $updatedTopic = Set-AzServiceBusTopic -InputObject $currentTopic -EnableExpress:$false
         $currentTopic.EnableExpress = $false
         AssertTopicUpdates $currentTopic $updatedTopic
         $currentTopic = $updatedTopic
+        Start-Sleep -Seconds 5
 
         $updatedTopic = Set-AzServiceBusTopic -InputObject $currentTopic -EnableExpress
         $currentTopic.EnableExpress = $true
         AssertTopicUpdates $currentTopic $updatedTopic
         $currentTopic = $updatedTopic
+        Start-Sleep -Seconds 5
 
         { Set-AzServiceBusTopic -InputObject $currentTopic -ErrorAction Stop } | Should -Throw 'Please specify the property you want to update on the -InputObject'
     }
