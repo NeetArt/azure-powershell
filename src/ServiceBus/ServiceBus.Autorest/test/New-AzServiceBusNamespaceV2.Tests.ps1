@@ -21,11 +21,12 @@ Describe 'New-AzServiceBusNamespaceV2' {
         $serviceBusNamespace.SkuName | Should -Be Standard
         $serviceBusNamespace.Location.Replace(" ", "").ToLower() | Should -Be $env.location
 
-        $serviceBusNamespace = New-AzServiceBusNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV3 -SkuName Standard -Location $env.location -Tag @{k1='v1'; k2='v2'} -DisableLocalAuth -MinimumTlsVersion 1.1 
+        # Policy on Microsoft.com tenant forces TLS 1.2
+        $serviceBusNamespace = New-AzServiceBusNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV3 -SkuName Standard -Location $env.location -Tag @{k1='v1'; k2='v2'} -DisableLocalAuth -MinimumTlsVersion 1.2 
         $serviceBusNamespace.Name | Should -Be $env.namespaceV3
         $serviceBusNamespace.SkuName | Should -Be Standard
         $serviceBusNamespace.SkuTier | Should -Be Standard
-        $serviceBusNamespace.MinimumTlsVersion | Should -Be '1.1'
+        $serviceBusNamespace.MinimumTlsVersion | Should -Be '1.2'
         $serviceBusNamespace.Location.Replace(" ", "").ToLower() | Should -Be $env.location
         $serviceBusNamespace.DisableLocalAuth | Should -Be $true
         $serviceBusNamespace.Tag.Count | should -Be 2
