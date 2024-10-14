@@ -9,10 +9,6 @@
     "resource_name_prefix": {
       "defaultValue": "ps-testing",
       "type": "string"
-    },
-    "useZoneRedundancy": {
-      "defaultValue": true,
-      "type": "bool"
     }
   },
   "variables": {

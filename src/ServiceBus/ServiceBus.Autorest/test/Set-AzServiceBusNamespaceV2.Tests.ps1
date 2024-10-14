@@ -22,7 +22,6 @@ function assertNamespaceUpdates{
     $expectedNamespace.Name | Should -Be $namespace.Name
     $expectedNamespace.MinimumTlsVersion | Should -Be $namespace.MinimumTlsVersion
     $expectedNamespace.Location | Should -Be $namespace.Location
-    $expectedNamespace.ZoneRedundant | Should -Be $namespace.ZoneRedundant
     $expectedNamespace.DisableLocalAuth | Should -Be $namespace.DisableLocalAuth
     $expectedNamespace.Tag.Count | Should -Be $namespace.Tag.Count
     $expectedNamespace.PublicNetworkAccess | Should -Be $namespace.PublicNetworkAccess

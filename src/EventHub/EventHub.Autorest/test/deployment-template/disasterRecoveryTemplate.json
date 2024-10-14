@@ -30,7 +30,6 @@
         "minimumTlsVersion": "1.2",
         "publicNetworkAccess": "Enabled",
         "disableLocalAuth": false,
-        "zoneRedundant": true,
         "isAutoInflateEnabled": false,
         "maximumThroughputUnits": 0,
         "kafkaEnabled": true
@@ -83,7 +82,6 @@
         "minimumTlsVersion": "1.2",
         "publicNetworkAccess": "Enabled",
         "disableLocalAuth": false,
-        "zoneRedundant": true,
         "isAutoInflateEnabled": false,
         "maximumThroughputUnits": 0,
         "kafkaEnabled": true

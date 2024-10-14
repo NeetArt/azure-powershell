@@ -61,10 +61,6 @@
     "peName2": {
       "defaultValue": "pe2",
       "type": "String"
-    },
-    "useZoneRedundancy": {
-      "defaultValue": true,
-      "type": "bool"
     }
   },
   "variables": {
@@ -85,7 +81,6 @@
         "minimumTlsVersion": "1.2",
         "publicNetworkAccess": "Enabled",
         "disableLocalAuth": false,
-        "zoneRedundant": "[parameters('useZoneRedundancy')]",
         "isAutoInflateEnabled": false,
         "maximumThroughputUnits": 0,
         "kafkaEnabled": true
@@ -108,7 +103,6 @@
         "minimumTlsVersion": "1.2",
         "publicNetworkAccess": "Enabled",
         "disableLocalAuth": false,
-        "zoneRedundant": "[parameters('useZoneRedundancy')]",
         "isAutoInflateEnabled": false,
         "maximumThroughputUnits": 0,
         "kafkaEnabled": true
@@ -290,7 +284,6 @@
         "minimumTlsVersion": "1.2",
         "publicNetworkAccess": "Enabled",
         "disableLocalAuth": false,
-        "zoneRedundant": "[parameters('useZoneRedundancy')]",
         "isAutoInflateEnabled": false,
         "maximumThroughputUnits": 0,
         "kafkaEnabled": true
@@ -344,7 +337,6 @@
         "minimumTlsVersion": "1.2",
         "publicNetworkAccess": "Enabled",
         "disableLocalAuth": false,
-        "zoneRedundant": "[parameters('useZoneRedundancy')]",
         "isAutoInflateEnabled": false,
         "maximumThroughputUnits": 0,
         "kafkaEnabled": true

@@ -49,10 +49,6 @@
     "peName2": {
       "defaultValue": "/",
       "type": "string"
-    },
-    "useZoneRedundancy": {
-      "defaultValue": true,
-      "type": "bool"
     }
   },
   "variables": {
@@ -71,8 +67,7 @@
       "properties": {
         "minimumTlsVersion": "1.2",
         "publicNetworkAccess": "Enabled",
-        "disableLocalAuth": false,
-        "zoneRedundant": false
+        "disableLocalAuth": false
       }
     },
     {
@@ -87,8 +82,7 @@
       "properties": {
         "minimumTlsVersion": "1.2",
         "publicNetworkAccess": "Enabled",
-        "disableLocalAuth": false,
-        "zoneRedundant": false
+        "disableLocalAuth": false
       }
     },
     {
@@ -108,7 +102,6 @@
         "minimumTlsVersion": "1.2",
         "publicNetworkAccess": "Enabled",
         "disableLocalAuth": false,
-        "zoneRedundant": "[parameters('useZoneRedundancy')]",
         "isAutoInflateEnabled": false
       }
     },
@@ -396,8 +389,7 @@
       "properties": {
         "minimumTlsVersion": "1.2",
         "publicNetworkAccess": "Enabled",
-        "disableLocalAuth": false,
-        "zoneRedundant": false
+        "disableLocalAuth": false
       }
     },
     {
@@ -413,8 +405,7 @@
       "properties": {
         "minimumTlsVersion": "1.2",
         "publicNetworkAccess": "Enabled",
-        "disableLocalAuth": false,
-        "zoneRedundant": false
+        "disableLocalAuth": false
       }
     },
     {
@@ -429,8 +420,7 @@
       "properties": {
         "minimumTlsVersion": "1.2",
         "publicNetworkAccess": "Enabled",
-        "disableLocalAuth": false,
-        "zoneRedundant": false
+        "disableLocalAuth": false
       }
     },
     {
@@ -446,8 +436,7 @@
       "properties": {
         "minimumTlsVersion": "1.2",
         "publicNetworkAccess": "Enabled",
-        "disableLocalAuth": false,
-        "zoneRedundant": false
+        "disableLocalAuth": false
       }
     }
   ]

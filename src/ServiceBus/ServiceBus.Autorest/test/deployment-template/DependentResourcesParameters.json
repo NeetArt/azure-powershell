@@ -4,9 +4,6 @@
   "parameters": {
     "resource_name_prefix": {
       "value": "sb-ps-v8aenr"
-    },
-    "useZoneRedundancy": {
-      "value": true
     }
   }
 }

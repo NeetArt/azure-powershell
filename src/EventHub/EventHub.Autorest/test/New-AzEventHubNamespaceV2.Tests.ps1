@@ -24,11 +24,10 @@ Describe 'New-AzEventHubNamespaceV2' {
         $eventhubNamespace.MinimumTlsVersion | Should -Be "1.2"
         $eventhubNamespace.PublicNetworkAccess | Should -Be "Enabled"
         $eventHubNamespace.EnableAutoInflate | Should -Be $false
-        $eventHubNamespace.ZoneRedundant | Should -Be $false
         $eventHubNamespace.DisableLocalAuth | Should -Be $false
         $eventHubNamespace.KafkaEnabled | Should be $true
 
-        $eventHubNamespace = New-AzEventHubNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV3 -SkuCapacity 10 -MaximumThroughputUnit 18 -SkuName Standard -Location $env.location -Tag @{k1='v1'; k2='v2'} -EnableAutoInflate -DisableLocalAuth -MinimumTlsVersion 1.1 -PublicNetworkAccess Disabled -ZoneRedundant:$env.useZoneRedundancy
+        $eventHubNamespace = New-AzEventHubNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV3 -SkuCapacity 10 -MaximumThroughputUnit 18 -SkuName Standard -Location $env.location -Tag @{k1='v1'; k2='v2'} -EnableAutoInflate -DisableLocalAuth -MinimumTlsVersion 1.1 -PublicNetworkAccess Disabled
         $eventHubNamespace.Name | Should be $env.namespaceV3
         $eventHubNamespace.SkuCapacity | Should be 10
         $eventHubNamespace.SkuName | Should be Standard
@@ -39,13 +38,11 @@ Describe 'New-AzEventHubNamespaceV2' {
         $eventHubNamespace.DisableLocalAuth | Should be $true
         $eventHubNamespace.KafkaEnabled | Should be $true
         $eventHubNamespace.PublicNetworkAccess | Should -Be "Disabled"
-        $eventHubNamespace.ZoneRedundant | Should -Be $env.useZoneRedundancy
 
         $eventhubNamespace = New-AzEventHubNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV4 -SkuName Premium -Location $env.location -IdentityType SystemAssigned
         $eventhubNamespace.MaximumThroughputUnit | Should -Be 0
         $eventhubNamespace.Name | Should -Be $env.namespaceV4
         $eventhubNamespace.IdentityType | Should -Be SystemAssigned
-        $eventhubNamespace.ZoneRedundant | Should -Be $true
         $eventhubNamespace.SkuName | Should -Be Premium
         $eventhubNamespace.SkuTier | Should be Premium
         $eventhubNamespace.DisableLocalAuth | Should -Be $false

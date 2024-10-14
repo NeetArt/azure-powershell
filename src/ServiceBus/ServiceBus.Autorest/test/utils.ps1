@@ -17,7 +17,6 @@ function setupEnv(
     $location = 'eastus',
     $secondaryLocation = 'southcentralus',
     $usePartitionedNamespace = $true,
-    $useZoneRedundancy = $true,
     $verbose = $false) {
     # Preload subscriptionId and tenant from context, which will be used in test
     # as default. You could change them if needed.
@@ -69,7 +68,6 @@ function setupEnv(
 
     $env.Add("location", $location)
     $env.Add("secondaryLocation", $secondaryLocation)
-    $env.Add("useZoneRedundancy", $useZoneRedundancy)
     $env.Add("usePartitionedNamespace", $usePartitionedNamespace)
     $env.Add('resourceGroup', $resourceGroup)
     $env.Add('namespace', $namespaceName)
@@ -118,9 +116,8 @@ function setupEnv(
 
     $dependentResourcesTemplate = Get-Content .\test\deployment-template\DependentResourcesParameters.json | ConvertFrom-Json
     $dependentResourcesTemplate.parameters.resource_name_prefix.value = $dependentResourcesPrefix
-    $dependentResourcesTemplate.parameters.useZoneRedundancy.value = $useZoneRedundancy
     Set-Content -Path .\test\deployment-template\DependentResourcesParameters.json -Value (ConvertTo-Json $dependentResourcesTemplate)
-    $rg = New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\DependentResourcesTemplate.json -TemplateParameterFile .\test\deployment-template\DependentResourcesParameters.json -Name dependenciesTemplate -ResourceGroupName $resourceGroup -Verbose:$verbose
+    New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\DependentResourcesTemplate.json -TemplateParameterFile .\test\deployment-template\DependentResourcesParameters.json -Name dependenciesTemplate -ResourceGroupName $resourceGroup -Verbose:$verbose
 
     Write-Host -ForegroundColor Magenta "Deployed dependencies ARM template"
 
@@ -138,7 +135,6 @@ function setupEnv(
     $serviceBusTemplate.parameters.subnet1Id.value = $subnet1ResourceId
     $serviceBusTemplate.parameters.peName1.value = $peName1
     $serviceBusTemplate.parameters.peName2.value = $peName2
-    $serviceBusTemplate.parameters.useZoneRedundancy.value = $useZoneRedundancy
     Set-Content -Path .\test\deployment-template\parameter.json -Value (ConvertTo-Json $serviceBusTemplate)
     $rg = New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\template.json -TemplateParameterFile .\test\deployment-template\parameter.json -Name serviceBusTemplate -ResourceGroupName $resourceGroup -Verbose:$verbose
 
@@ -164,7 +160,6 @@ function setupEnv(
 function GenerateSASKey {
     [Reflection.Assembly]::LoadWithPartialName("System.Web")| out-null
     $URI="myNamespace.servicebus.windows.net/myEventHub"
-    $Access_Policy_Name="RootManageSharedAccessKey"
     $Access_Policy_Key="myPrimaryKey"
     #Token expires now+300
     $Expires=([DateTimeOffset]::Now.ToUnixTimeSeconds())+300
@@ -179,6 +174,6 @@ function GenerateSASKey {
 function cleanupEnv(
     $verbose = $false) {
     # Clean resources you create for testing
-    Remove-AzResourceGroup -Name $env.resourceGroup -Confirm:$false -Verbose:$verbose
+    Remove-AzResourceGroup -Name $env.resourceGroup -Confirm:$false -Verbose:$verbose -Force
 }
 

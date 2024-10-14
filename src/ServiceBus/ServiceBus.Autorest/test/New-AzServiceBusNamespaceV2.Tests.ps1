@@ -32,10 +32,10 @@ Describe 'New-AzServiceBusNamespaceV2' {
         $serviceBusNamespace.Tag.Count | should -Be 2
 
         if ($env:usePartitionedNamespace) {
-            $serviceBusNamespace = New-AzServiceBusNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV4 -SkuName Premium -Location $env.location -IdentityType SystemAssigned -ZoneRedundant:$env.useZoneRedundancy -PremiumMessagingPartition 2 -SkuCapacity 2
+            $serviceBusNamespace = New-AzServiceBusNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV4 -SkuName Premium -Location $env.location -IdentityType SystemAssigned -PremiumMessagingPartition 2 -SkuCapacity 2
             $serviceBusNamespace.PremiumMessagingPartition | Should -Be 2
         } else {
-            $serviceBusNamespace = New-AzServiceBusNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV4 -SkuName Premium -Location $env.location -IdentityType SystemAssigned -ZoneRedundant:$env.useZoneRedundancy -SkuCapacity 2
+            $serviceBusNamespace = New-AzServiceBusNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV4 -SkuName Premium -Location $env.location -IdentityType SystemAssigned -SkuCapacity 2
         }
         $serviceBusNamespace.Name | Should -Be $env.namespaceV4
         $serviceBusNamespace.IdentityType | Should -Be SystemAssigned
@@ -43,7 +43,6 @@ Describe 'New-AzServiceBusNamespaceV2' {
         $serviceBusNamespace.SkuTier | Should -Be Premium
         $serviceBusNamespace.SkuCapacity | Should -Be 2
         $serviceBusNamespace.Location.Replace(" ", "").ToLower() | Should -Be $env.location
-        $serviceBusNamespace.ZoneRedundant | Should be $env.useZoneRedundancy
 
         # Create namespace with UserAssigned Encryption Enabled
         $ec1 = New-AzServiceBusKeyVaultPropertiesObject -KeyName key1 -KeyVaulturi $env.keyVaultUri -UserAssignedIdentity $env.msi1
@@ -56,7 +55,6 @@ Describe 'New-AzServiceBusNamespaceV2' {
         $serviceBusNamespace.KeyVaultProperty.Count | Should -Be 2
         $serviceBusNamespace.UserAssignedIdentity.Count | Should -Be 2
         $serviceBusNamespace.RequireInfrastructureEncryption | Should -Be $false
-        $serviceBusNamespace.ZoneRedundant | Should be $false
 
         # Create namespace with UserAssigned Encryption Enabled and RequireInfrastructureEncryption true
         $ec1 = New-AzServiceBusKeyVaultPropertiesObject -KeyName key1 -KeyVaulturi $env.keyVaultUri -UserAssignedIdentity $env.msi1

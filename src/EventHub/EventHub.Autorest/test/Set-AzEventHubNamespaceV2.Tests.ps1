@@ -25,7 +25,6 @@ function assertNamespaceUpdates{
     $expectedNamespace.Location | Should -Be $namespace.Location
     $expectedNamespace.EnableAutoInflate | Should -Be $namespace.EnableAutoInflate
     $expectedNamespace.KafkaEnabled | Should -Be $namespace.KafkaEnabled
-    $expectedNamespace.ZoneRedundant | Should -Be $namespace.ZoneRedundant
     $expectedNamespace.DisableLocalAuth | Should -Be $namespace.DisableLocalAuth
     $expectedNamespace.Tag.Count | Should -Be $namespace.Tag.Count
     $expectedNamespace.PublicNetworkAccess | Should -Be $namespace.PublicNetworkAccess

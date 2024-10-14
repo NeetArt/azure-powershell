@@ -34,9 +34,6 @@
     },
     "peName2": {
       "value": "pe2a10kcs"
-    },
-    "useZoneRedundancy": {
-      "value": true
     }
   }
 }

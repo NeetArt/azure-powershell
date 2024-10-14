@@ -43,9 +43,6 @@
     },
     "namespaceResourceId": {
       "value": "/subscriptions/326100e2-f69d-4268-8503-075374f62b6e/resourceGroups/Autorest-PS-EventHub-kchdmf/providers/Microsoft.EventHub/namespaces/namespaceNameeqpx5w"
-    },
-    "useZoneRedundancy": {
-      "value": true
     }
   }
 }

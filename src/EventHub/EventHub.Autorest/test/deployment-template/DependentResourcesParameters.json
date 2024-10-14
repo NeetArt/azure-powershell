@@ -4,9 +4,6 @@
   "parameters": {
     "resource_name_prefix": {
       "value": "eh-ps-vgt87w"
-    },
-    "useZoneRedundancy": {
-      "value": true
     }
   }
 }
