@@ -14,8 +14,8 @@ if(($null -eq $TestName) -or ($TestName -contains 'Get-AzEventHubClusterNamespac
   . ($mockingPath | Select-Object -First 1).FullName
 }
 
-Describe 'Get-AzEventHubClusterNamespace' -skip {
-    It 'List'  {
+Describe 'Get-AzEventHubClusterNamespace' {
+    It 'List' -skip {
         $listOfNamespaces = Get-AzEventHubClusterNamespace -SubscriptionId $env.clusterSubscriptionId -ResourceGroupName $env.clusterResourceGroup -ClusterName $env.createdCluster
         $listOfNamespaces.Count | Should -Be 2
     }
