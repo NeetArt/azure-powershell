@@ -27,6 +27,7 @@ Describe 'Set-AzEventHub' {
         $eventhub.IntervalInSeconds | Should -Be 600
         $eventhub.SizeLimitInBytes | Should -Be 11000000
         $eventhub.StorageAccountResourceId | Should -Be $eventhub.StorageAccountResourceId
+        Start-Sleep 2
 
         $eventhub = Set-AzEventHub -ResourceGroupName $env.resourceGroup -NamespaceName $env.namespace -Name $env.eventHub3 -RetentionTimeInHour 90
         $eventhub.RetentionTimeInHour | Should -Be 90
@@ -40,6 +41,7 @@ Describe 'Set-AzEventHub' {
         $eventhub.IntervalInSeconds | Should -Be 600
         $eventhub.SizeLimitInBytes | Should -Be 11000000
         $eventhub.StorageAccountResourceId | Should -Be $eventhub.StorageAccountResourceId
+        Start-Sleep 2
 
         # Create EventHub with MSI Capture Enabled
         $eventhub = New-AzEventHub -Name $env.eventHub5 -ResourceGroupName $env.resourceGroup -NamespaceName $env.namespaceV1
@@ -58,6 +60,7 @@ Describe 'Set-AzEventHub' {
         $eventhub.StorageAccountResourceId | Should -Be $eventhub.StorageAccountResourceId
         $eventhub.IdentityType | Should -Be $eventhub.IdentityType
         $eventhub.UserAssignedIdentityId | Should -be $eventhub.UserAssignedIdentityId
+        Start-Sleep 2
     }
 
     It 'SetViaIdentityExpanded'  {
@@ -76,6 +79,7 @@ Describe 'Set-AzEventHub' {
         $eventhub.IntervalInSeconds | Should -Be 600
         $eventhub.SizeLimitInBytes | Should -Be 11000000
         $eventhub.StorageAccountResourceId | Should -Be $eventhub.StorageAccountResourceId
+        Start-Sleep 2
 
         $eventhub = Set-AzEventHub -InputObject $eventhub.Id -CaptureEnabled:$false
         $eventhub.PartitionCount | Should -Be 4
@@ -88,6 +92,7 @@ Describe 'Set-AzEventHub' {
         $eventhub.IntervalInSeconds | Should -Be 600
         $eventhub.SizeLimitInBytes | Should -Be 11000000
         $eventhub.StorageAccountResourceId | Should -Be $eventhub.StorageAccountResourceId
+        Start-Sleep 2
 
         $eventhub = Set-AzEventHub -InputObject $eventhub.Id -PartitionCount 8
         $eventhub.PartitionCount | Should -Be 8

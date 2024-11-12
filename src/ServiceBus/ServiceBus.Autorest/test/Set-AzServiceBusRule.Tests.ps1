@@ -48,46 +48,55 @@ Describe 'Set-AzServiceBusRule' {
         $currentRule.ContentType = "secondcontenttype"
         AssertCorrelationFilterUpdates $currentRule $updatedRule
         $currentRule = $updatedRule
+        Start-Sleep 2
 
         $updatedRule = Set-AzServiceBusRule -InputObject $currentRule -CorrelationId secondcorrelationid
         $currentRule.CorrelationId = "secondcorrelationid"
         AssertCorrelationFilterUpdates $currentRule $updatedRule
         $currentRule = $updatedRule
+        Start-Sleep 2
 
         $updatedRule = Set-AzServiceBusRule -InputObject $currentRule -Label secondlabel
         $currentRule.Label = "secondlabel"
         AssertCorrelationFilterUpdates $currentRule $updatedRule
         $currentRule = $updatedRule
+        Start-Sleep 2
 
         $updatedRule = Set-AzServiceBusRule -InputObject $currentRule -MessageId secondmessageid
         $currentRule.MessageId = "secondmessageid"
         AssertCorrelationFilterUpdates $currentRule $updatedRule
         $currentRule = $updatedRule
+        Start-Sleep 2
 
         $updatedRule = Set-AzServiceBusRule -InputObject $currentRule -CorrelationFilterProperty @{a='b'}
         $currentRule.CorrelationFilterProperty = @{a='b'}
         AssertCorrelationFilterUpdates $currentRule $updatedRule
         $currentRule = $updatedRule
+        Start-Sleep 2
 
         $updatedRule = Set-AzServiceBusRule -InputObject $currentRule -ReplyTo secondreplyto
         $currentRule.ReplyTo = "secondreplyto"
         AssertCorrelationFilterUpdates $currentRule $updatedRule
         $currentRule = $updatedRule
+        Start-Sleep 2
 
         $updatedRule = Set-AzServiceBusRule -InputObject $currentRule -ReplyToSessionId secondreplytosessionid
         $currentRule.ReplyToSessionId = "secondreplytosessionid"
         AssertCorrelationFilterUpdates $currentRule $updatedRule
         $currentRule = $updatedRule
+        Start-Sleep 2
 
         $updatedRule = Set-AzServiceBusRule -InputObject $currentRule -SessionId secondsessionid
         $currentRule.SessionId = "secondsessionid"
         AssertCorrelationFilterUpdates $currentRule $updatedRule
         $currentRule = $updatedRule
+        Start-Sleep 2
 
         $updatedRule = Set-AzServiceBusRule -InputObject $currentRule -To secondto
         $currentRule.To = "secondto"
         AssertCorrelationFilterUpdates $currentRule $updatedRule
         $currentRule = $updatedRule
+        Start-Sleep 2
 
         { Set-AzServiceBusRule -InputObject $currentRule -ErrorAction Stop } | Should -Throw 'Please specify the property you want to update on the -InputObject'
     }

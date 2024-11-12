@@ -20,6 +20,7 @@ Describe 'Set-AzEventHubConsumerGroup' {
         $consumerGroup.Name | Should -Be $env.consumerGroup
         $consumerGroup.ResourceGroupName | Should -Be $env.resourceGroup
         $consumerGroup.UserMetadata | Should -Be "Second Metadata"
+        Start-Sleep 2
     }
 
     It 'SetViaIdentityExpanded' {

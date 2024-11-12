@@ -43,11 +43,13 @@ Describe 'Set-AzServiceBusSubscription' {
         $currentSub.DefaultMessageTimeToLive = (New-TimeSpan -Days 1 -Minutes 3 -Seconds 4) 
         AssertSubscriptionUpdates $currentSub $updatedSub
         $currentSub = $updatedSub
+        Start-Sleep 2
 
         $updatedSub = Set-AzServiceBusSubscription -ResourceGroupName $env.resourceGroup -NamespaceName $env.namespace -TopicName topic1 -Name subscription3 -LockDuration (New-TimeSpan -Minutes 1)
         $currentSub.LockDuration = (New-TimeSpan -Minutes 1)
         AssertSubscriptionUpdates $currentSub $updatedSub
         $currentSub = $updatedSub
+        Start-Sleep 2
     }
 
     It 'SetViaIdentityExpanded' {
@@ -56,47 +58,56 @@ Describe 'Set-AzServiceBusSubscription' {
         $currentSub.DefaultMessageTimeToLive = (New-TimeSpan -Days 1 -Minutes 3 -Seconds 4)
         AssertSubscriptionUpdates $currentSub $updatedSub
         $currentSub = $updatedSub
+        Start-Sleep 2
 
         $updatedSub = Set-AzServiceBusSubscription -InputObject $currentSub -DeadLetteringOnMessageExpiration:$false
         $currentSub.DeadLetteringOnMessageExpiration = $false
         AssertSubscriptionUpdates $currentSub $updatedSub
         $currentSub = $updatedSub
+        Start-Sleep 2
 
         $updatedSub = Set-AzServiceBusSubscription -InputObject $currentSub -LockDuration (New-TimeSpan -Minutes 1)
         $currentSub.LockDuration = (New-TimeSpan -Minutes 1)
         AssertSubscriptionUpdates $currentSub $updatedSub
         $currentSub = $updatedSub
+        Start-Sleep 2
 
         $updatedSub = Set-AzServiceBusSubscription -InputObject $currentSub -MaxDeliveryCount 8
         $currentSub.MaxDeliveryCount = 8
         AssertSubscriptionUpdates $currentSub $updatedSub
         $currentSub = $updatedSub
+        Start-Sleep 2
 
         $updatedSub = Set-AzServiceBusSubscription -InputObject $currentSub -EnableBatchedOperations:$false
         $currentSub.EnableBatchedOperations = $false
         AssertSubscriptionUpdates $currentSub $updatedSub
         $currentSub = $updatedSub
+        Start-Sleep 2
 
         $updatedSub = Set-AzServiceBusSubscription -InputObject $currentSub -ForwardTo topic1
         $currentSub.ForwardTo = "topic1"
         AssertSubscriptionUpdates $currentSub $updatedSub
         $currentSub = $updatedSub
+        Start-Sleep 2
 
         $updatedSub = Set-AzServiceBusSubscription -InputObject $currentSub -ForwardDeadLetteredMessagesTo topic1
         $currentSub.ForwardDeadLetteredMessagesTo = "topic1"
         AssertSubscriptionUpdates $currentSub $updatedSub
         $currentSub = $updatedSub
+        Start-Sleep 2
 
         $updatedSub = Set-AzServiceBusSubscription -InputObject $currentSub -Status ReceiveDisabled
         $currentSub.Status = "ReceiveDisabled"
         AssertSubscriptionUpdates $currentSub $updatedSub
         $currentSub = $updatedSub
+        Start-Sleep 2
 
         $currentSub = New-AzServiceBusSubscription -ResourceGroupName $env.resourceGroup -NamespaceName $env.namespace -TopicName topic1 -Name subscription4
         $updatedSub = Set-AzServiceBusSubscription -InputObject $currentSub -AutoDeleteOnIdle (New-TimeSpan -Days 5)
         $currentSub.AutoDeleteOnIdle = (New-TimeSpan -Days 5)
         AssertSubscriptionUpdates $currentSub $updatedSub
         $currentSub = $updatedSub
+        Start-Sleep 2
 
         { Set-AzServiceBusSubscription -InputObject $currentSub -ErrorAction Stop } | Should -Throw 'Please specify the property you want to update on the -InputObject'
     }
