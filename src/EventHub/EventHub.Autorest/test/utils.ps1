@@ -195,7 +195,7 @@ function setupEnv(
     $dependentResourcesTemplate.parameters.resource_name_prefix.value = $dependentResourcesPrefix
     $dependentResourcesTemplate.parameters.useZoneRedundancy.value = $useZoneRedundancy
     Set-Content -Path .\test\deployment-template\DependentResourcesParameters.json -Value (ConvertTo-Json $dependentResourcesTemplate)
-    $rg = New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\DependentResourcesTemplate.json -TemplateParameterFile .\test\deployment-template\DependentResourcesParameters.json -Name dependenciesTemplate -ResourceGroupName $resourceGroup -Verbose:$verbose
+    New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\DependentResourcesTemplate.json -TemplateParameterFile .\test\deployment-template\DependentResourcesParameters.json -Name dependenciesTemplate -ResourceGroupName $resourceGroup -Verbose:$verbose
 
     Write-Host -ForegroundColor Magenta "Deployed dependencies ARM template"
 
@@ -237,7 +237,7 @@ function setupEnv(
     $eventHubTemplate.parameters.namespaceResourceId.value = $namespaceResourceId
     $eventHubTemplate.parameters.useZoneRedundancy.value = $useZoneRedundancy
     Set-Content -Path .\test\deployment-template\parameter.json -Value (ConvertTo-Json $eventHubTemplate)
-    $rg = New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\template.json -TemplateParameterFile .\test\deployment-template\parameter.json -Name eventHubTemplate -ResourceGroupName $resourceGroup -Verbose:$verbose
+    New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\template.json -TemplateParameterFile .\test\deployment-template\parameter.json -Name eventHubTemplate -ResourceGroupName $resourceGroup -Verbose:$verbose
 
     Write-Host -ForegroundColor Magenta "Deployed Event Hubs namespace template"
 
@@ -247,7 +247,7 @@ function setupEnv(
     $keyVaultTemplate.parameters.resource_name_prefix.value = $dependentResourcesPrefix
     $keyVaultTemplate.parameters.system_assigned_namespace_name.value = $systemAssignedNamespaceName
     Set-Content -Path .\test\deployment-template\KeyVaultParameters.json -Value (ConvertTo-Json $keyVaultTemplate)
-    $rg = New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\KeyVaultTemplate.json -TemplateParameterFile .\test\deployment-template\KeyVaultParameters.json -Name keyVaultTemplate -ResourceGroupName $resourceGroup -Verbose:$verbose
+    New-AzResourceGroupDeployment -TemplateFile .\test\deployment-template\KeyVaultTemplate.json -TemplateParameterFile .\test\deployment-template\KeyVaultParameters.json -Name keyVaultTemplate -ResourceGroupName $resourceGroup -Verbose:$verbose
 
     Write-Host -ForegroundColor Magenta "Deployed KeyVault ARM template"
 
@@ -277,6 +277,6 @@ function GenerateSASKey {
 function cleanupEnv(
     $verbose = $false) {
     # Clean resources you create for testing
-    Remove-AzResourceGroup -Name $env.resourceGroup -Confirm:$false -Verbose:$verbose
+    Remove-AzResourceGroup -Name $env.resourceGroup -Confirm:$false -Verbose:$verbose -Force
 }
 

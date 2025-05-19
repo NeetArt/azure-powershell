@@ -108,9 +108,10 @@ Describe 'Set-AzServiceBusNamespaceV2' {
         $namespace = Set-AzServiceBusNamespaceV2 -InputObject $expectedNamespace
         assertNamespaceUpdates $expectedNamespace $namespace
 
-        $namespace = Set-AzServiceBusNamespaceV2 -InputObject $expectedNamespace -MinimumTlsVersion 1.0
-        $expectedNamespace.MinimumTlsVersion = '1.0'
-        assertNamespaceUpdates $expectedNamespace $namespace
+        # Policy on Microsoft.com tenant forces TLS 1.2
+        # $namespace = Set-AzServiceBusNamespaceV2 -InputObject $expectedNamespace -MinimumTlsVersion 1.0
+        # $expectedNamespace.MinimumTlsVersion = '1.0'
+        # assertNamespaceUpdates $expectedNamespace $namespace
 
         $namespace = Set-AzServiceBusNamespaceV2 -InputObject $expectedNamespace -MinimumTlsVersion 1.2
         $expectedNamespace.MinimumTlsVersion = '1.2'

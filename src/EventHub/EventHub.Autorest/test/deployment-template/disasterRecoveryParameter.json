@@ -7,6 +7,9 @@
     },
     "secondarynamespace_name": {
       "value": "namespaceNameyr61dz"
+    },
+    "useZoneRedundancy": {
+      "value": true
     }
   }
 }

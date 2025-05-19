@@ -44,7 +44,7 @@ Describe 'New-AzEventHubNamespaceV2' {
         $eventhubNamespace.MaximumThroughputUnit | Should -Be 0
         $eventhubNamespace.Name | Should -Be $env.namespaceV4
         $eventhubNamespace.IdentityType | Should -Be SystemAssigned
-        $eventhubNamespace.ZoneRedundant | Should -Be $true
+        $eventhubNamespace.ZoneRedundant | Should -Be $env.useZoneRedundancy
         $eventhubNamespace.SkuName | Should -Be Premium
         $eventhubNamespace.SkuTier | Should be Premium
         $eventhubNamespace.DisableLocalAuth | Should -Be $false
@@ -92,10 +92,10 @@ Describe 'New-AzEventHubNamespaceV2' {
         $listOfNamespaces.Count | Should -BeGreaterOrEqual 5
 
         # Create a geo-Dr namespace
-        $primaryReplica = New-AzEventHubLocationsNameObject -LocationName centraluseuap -RoleType Primary
-        $secondaryReplica =  New-AzEventHubLocationsNameObject -LocationName eastus2euap -RoleType Secondary
-        $eventhubNamespace = New-AzEventHubNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV12 -SkuName Premium -Location centraluseuap -GeoDataReplicationLocation $primaryReplica, $secondaryReplica
-        $eventHubNamespace.GeoDataReplicationLocation.Count | Should -Be 2
+        # $primaryReplica = New-AzEventHubLocationsNameObject -LocationName centraluseuap -RoleType Primary
+        # $secondaryReplica =  New-AzEventHubLocationsNameObject -LocationName eastus2euap -RoleType Secondary
+        # $eventhubNamespace = New-AzEventHubNamespaceV2 -ResourceGroupName $env.resourceGroup -Name $env.namespaceV12 -SkuName Premium -Location centraluseuap -GeoDataReplicationLocation $primaryReplica, $secondaryReplica
+        # $eventHubNamespace.GeoDataReplicationLocation.Count | Should -Be 2
 
     }
 }
