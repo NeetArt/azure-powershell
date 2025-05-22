@@ -22,14 +22,14 @@ Describe 'Start-AzServiceBusMigration' {
 
         do {
             $migrationConfig = Get-AzServiceBusMigration -ResourceGroupName $env.resourceGroup -NamespaceName $env.migrationPrimaryNamespace
-            Start-TestSleep 10
+            Start-Sleep 10
         } while ($migrationConfig.ProvisioningState -ne 'Succeeded')
 
         Stop-AzServiceBusMigration -ResourceGroupName $env.resourceGroup -NamespaceName $env.migrationPrimaryNamespace
 
         do {
             $migrationConfig = Get-AzServiceBusMigration -ResourceGroupName $env.resourceGroup -NamespaceName $env.migrationPrimaryNamespace
-            Start-TestSleep 10
+            Start-Sleep 10
         } while ($migrationConfig.ProvisioningState -ne 'Succeeded')
 
         $migrationConfig.TargetNamespace | Should -Be ""
@@ -43,12 +43,12 @@ Describe 'Start-AzServiceBusMigration' {
 
         do {
             $migrationConfig = Get-AzServiceBusMigration -ResourceGroupName $env.resourceGroup -NamespaceName $env.migrationPrimaryNamespace
-            Start-TestSleep 10
+            Start-Sleep 10
         } while ($migrationConfig.ProvisioningState -ne 'Succeeded')
 
         Complete-AzServiceBusMigration -ResourceGroupName $env.resourceGroup -NamespaceName $env.migrationPrimaryNamespace
 
-        Start-TestSleep 240
+        Start-Sleep 240
 
         $drConfig = Get-AzServiceBusGeoDRConfiguration -ResourceGroupName $env.resourceGroup -Name $env.migrationPrimaryNamespace -NamespaceName $env.migrationSecondaryNamespace
         $drConfig.Name | Should -Be $env.migrationPrimaryNamespace

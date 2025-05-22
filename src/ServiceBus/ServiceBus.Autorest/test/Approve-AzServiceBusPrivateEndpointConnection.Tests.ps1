@@ -26,7 +26,7 @@ Describe 'Approve-AzServiceBusPrivateEndpointConnection' {
 
         while ($firstPrivateEndpoint.ProvisioningState -ne "Succeeded") {
             $firstPrivateEndpoint = Get-AzServiceBusPrivateEndpointConnection -Name $privateEndpoint[0].Name -ResourceGroupName $env.resourceGroup -NamespaceName $env.namespace
-            Start-TestSleep 10
+            Start-Sleep 10
         }
     }
 
@@ -39,7 +39,7 @@ Describe 'Approve-AzServiceBusPrivateEndpointConnection' {
 
         while ($secondPrivateEndpoint.ProvisioningState -ne "Succeeded") {
             $secondPrivateEndpoint = Get-AzServiceBusPrivateEndpointConnection -Name $privateEndpoint[1].Name -ResourceGroupName $env.resourceGroup -NamespaceName $env.namespace
-            Start-TestSleep 10
+            Start-Sleep 10
         }
     }
 }

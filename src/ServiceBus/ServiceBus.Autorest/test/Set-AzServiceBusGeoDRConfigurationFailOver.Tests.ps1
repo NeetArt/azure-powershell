@@ -19,7 +19,7 @@ Describe 'Set-AzServiceBusGeoDRConfigurationFailOver' {
 
         while ($drConfig.ProvisioningState -ne "Succeeded") {
             $drConfig = Get-AzServiceBusGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.secondaryNamespace
-            Start-TestSleep 10
+            Start-Sleep 10
         }
 
         $drConfig.Name | Should -Be $env.alias
@@ -28,12 +28,12 @@ Describe 'Set-AzServiceBusGeoDRConfigurationFailOver' {
         $drConfig.Role | Should -Be "PrimaryNotReplicating"
 
         $drConfig = Remove-AzServiceBusGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.secondaryNamespace
-        Start-TestSleep 180
+        Start-Sleep 180
         $drConfig = New-AzServiceBusGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.primaryNamespace -PartnerNamespace $env.secondaryNamespaceResourceId
 
         while ($drConfig.ProvisioningState -ne "Succeeded") {
             $drConfig = Get-AzServiceBusGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.primaryNamespace
-            Start-TestSleep 10
+            Start-Sleep 10
         }
     }
     It 'FailViaIdentity' -skip:$($env.secondaryLocation -eq '') {
@@ -43,7 +43,7 @@ Describe 'Set-AzServiceBusGeoDRConfigurationFailOver' {
 
         do {
             $drConfig = Get-AzServiceBusGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.secondaryNamespace
-            Start-TestSleep 10
+            Start-Sleep 10
         } while ($drConfig.ProvisioningState -ne "Succeeded")
 
         $drConfig.Name | Should -Be $env.alias
@@ -53,7 +53,7 @@ Describe 'Set-AzServiceBusGeoDRConfigurationFailOver' {
 
         $drConfig = Remove-AzServiceBusGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.secondaryNamespace
 
-        Start-TestSleep 180
+        Start-Sleep 180
 
         { Get-AzServiceBusGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.primaryNamespace -ErrorAction Stop } | Should -Throw
     }
