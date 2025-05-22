@@ -19,7 +19,7 @@ Describe 'Set-AzEventHubGeoDRConfigurationBreakPair' {
 
         while ($drConfig.ProvisioningState -ne "Succeeded") {
             $drConfig = Get-AzEventHubGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.primaryNamespace
-            Start-TestSleep 10
+            Start-Sleep 10
         }
 
         $drConfig.Name | Should -Be $env.alias
@@ -31,7 +31,7 @@ Describe 'Set-AzEventHubGeoDRConfigurationBreakPair' {
 
         while ($drConfig.ProvisioningState -ne "Succeeded") {
             $drConfig = Get-AzEventHubGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.primaryNamespace
-            Start-TestSleep 10
+            Start-Sleep 10
         }
     }
 
@@ -42,7 +42,7 @@ Describe 'Set-AzEventHubGeoDRConfigurationBreakPair' {
 
         do {
             $drConfig = Get-AzEventHubGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.primaryNamespace
-            Start-TestSleep 10
+            Start-Sleep 10
         } while ($drConfig.ProvisioningState -ne "Succeeded")
 
         $drConfig.Name | Should -Be $env.alias
@@ -54,7 +54,7 @@ Describe 'Set-AzEventHubGeoDRConfigurationBreakPair' {
 
         while ($drConfig.ProvisioningState -ne "Succeeded") {
             $drConfig = Get-AzEventHubGeoDRConfiguration -Name $env.alias -ResourceGroupName $env.resourceGroup -NamespaceName $env.primaryNamespace
-            Start-TestSleep 10
+            Start-Sleep 10
         }
     }
 }
